@@ -1,5 +1,5 @@
 # Simple-Db-Router
-一个简单的分库分表starter组件
+一个简单的Mybatis分库分表starter组件
 
 在项目中引入配置文件如下
 ```properties
