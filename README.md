@@ -1,7 +1,9 @@
 # Simple-Db-Router
 一个简单的Mybatis分库分表starter组件
 
-在项目中引入配置文件如下
+# 使用方式
+
+## 一、在项目中引入配置文件如下
 ```properties
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 spring.datasource.username=root
@@ -30,4 +32,19 @@ db-router.db.datasource.db02.driver-class-name=com.mysql.jdbc.Driver
 db-router.db.datasource.db02.url=jdbc:mysql://ip:port/vipuser?useSSL=false
 db-router.db.datasource.db02.username=root
 db-router.db.datasource.db02.password=123456
+```
+## 二、在对应的Mapper影射的接口方法加上@DBRouter注解
+
+```java
+@DBRouterStrategy(splitTable = true)
+public interface VipUserMapper {
+
+    @Insert("insert into book_info " +
+            "(book_name,book_desc,book_price,book_is_valid,book_press) " +
+            "values " +
+            "(#{bookName},#{bookDesc},#{bookPrice},#{bookIsValid},#{bookPress})")
+    @DBRouter(key = "bookName")
+    public int insertUser(BookInfo bookInfo);
+
+}
 ```
